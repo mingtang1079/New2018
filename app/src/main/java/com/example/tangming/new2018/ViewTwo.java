@@ -42,7 +42,7 @@ public class ViewTwo extends LinearLayout implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private void onCreate() {
+    protected void onCreate() {
 
         // TODO: 2018/3/13 网络请求、数据处理、逻辑处理等等
 
@@ -53,7 +53,7 @@ public class ViewTwo extends LinearLayout implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private void onDestroy() {
+    protected void onDestroy() {
 
     }
 }

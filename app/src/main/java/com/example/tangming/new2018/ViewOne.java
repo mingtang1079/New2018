@@ -44,7 +44,7 @@ public class ViewOne extends FrameLayout implements LifecycleObserver {
 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private void onCreate() {
+    protected void onCreate() {
 
         TextView mTextViewm = new TextView(this.getContext());
         mTextViewm.setText("我是视图1");
@@ -55,7 +55,7 @@ public class ViewOne extends FrameLayout implements LifecycleObserver {
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    private void onDestroy() {
+    protected void onDestroy() {
 
 
     }
