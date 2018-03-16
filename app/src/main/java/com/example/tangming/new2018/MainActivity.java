@@ -15,6 +15,9 @@ import com.appbaselib.rx.RxHelper;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableConverter;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -45,20 +48,28 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Http.getDefault().login("1878019171", "123456")
-                .compose(RxHelper.handleResult(this))
-                .as(AutoDispose.<BaseModel<LoginIdentity>>autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner) this)))
-                .subscribe(new ResponceSubscriber<LoginIdentity>() {
-                    @Override
-                    protected void onSucess(LoginIdentity mLoginIdentity) {
-                        Log.d("tag=---->", mLoginIdentity.access_token);
-                    }
+        ResponceSubscriber mResponceSubscriber = new ResponceSubscriber<LoginIdentity>() {
+            @Override
+            protected void onSucess(LoginIdentity mLoginIdentity) {
+                Log.d("tag=---->", mLoginIdentity.access_token);
+            }
 
-                    @Override
-                    protected void onFail(String message) {
+            @Override
+            protected void onFail(String message) {
 
-                    }
-                });
+            }
+        };
+
+
+        //  BaseModel<LoginIdentity> mLoginIdentity =
+        Http.getDefault().login("18780191171", "123456")
+              //  .compose(RxHelper.<LoginIdentity>handleResult())
+                .as(AutoDispose.<BaseModel<LoginIdentity>>autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe(mResponceSubscriber);
+
+        Http.getDefault().login("18780191171", "123456")
+                .as(RxHelper.handleResult(this))
+                .subscribe(mResponceSubscriber);
     }
 
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -38,7 +39,7 @@ public interface API {
      * @return
      */
     @POST(INDEX + "authorize")
-    Flowable<BaseModel<LoginIdentity>> login(@Query("phone") String phone, @Query("password") String password);
+    Observable<BaseModel<LoginIdentity>> login(@Query("phone") String phone, @Query("password") String password);
 
 
 }
